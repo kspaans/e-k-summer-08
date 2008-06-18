@@ -1,5 +1,33 @@
 Erik and Kyle's Summer Project
 
-TODO: add more project ideas, and recover the style guides and rules that we left on csclub
+	This is a generic file containing a list of projects, style rules, and
+design rules.
+
+TODO: add more project ideas, and recover the style guides and rules that
+we left on csclub
+
+Current and future projects:
 - A hex editor
-- algorithms and data structures for all kind of trees
+- Algorithms and data structures:
+	- Hash Functions
+	- n-ary search tree
+	- Red-black tree
+	- AVL tree
+	- More
+
+Rules:
+- Useful commit comments
+
+Style Guide:
+- Use kernel style
+- if understand(kernel_style) ? use_kernel_style(you) : use_local() || use_K&R
+- Always indent with tabs
+- Comment blocks of code/functions
+- 80 characters per line max
+
+Design Guide:
+- Write up APIs/headers first (For clarity of functionality and intended
+  purpose)
+- Write tests for expected functionality
+- Write code to complete tests
+- See code for examples of test suites
