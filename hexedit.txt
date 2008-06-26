@@ -1,0 +1,13 @@
+===========T3H Hex Editor===========
+- What does a hex editor do?
+	- It lets us modify binary files.
+- How does it do it?
+	- I'm thinking that it'll be too complex for now to write piddley
+	  interactive stuff. I prefer to think of something along the lines
+	  of xxd/hexdump output to a file, but then you can edit that file
+	  with $EDITOR, and have the hexeditor write it back as a binary
+	  file. So the initial output will look a lot like output from xxd
+	  (perhaps with similar options), but the trick is we'll support
+	  things like comments in the input file, and allow the input file
+	  to be read and translated back from hexadecimal to a raw binary
+	  file.
