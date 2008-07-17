@@ -8,6 +8,7 @@ we left on csclub
 
 Current and future projects:
 - A hex editor
+- A regular expression compiler - builds regexps into an automata
 - Algorithms and data structures:
 	- Hash Functions
 	- n-ary search tree
