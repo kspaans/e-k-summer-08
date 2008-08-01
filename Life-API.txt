@@ -1,0 +1,22 @@
+CONWAY'S GAME OF LIFE -- API
+----------------------------
+API for the fundamental functions of the Game of Life simulator.
+----------------------------
+
+kill();
+Takes a cell position, and marks that position as dead in the field.
+
+spawn();
+Takes a cell position, and marks that position as live in the field.
+
+rule();
+Takes a cell position and a count of live cells surrounding it, and either kills, spawns, or doesn't change the cell at that position.
+
+check_surrounding();
+Takes a cell position, and returns the number of live cells surrounding it.
+
+generator();
+Takes a number, and ages the field by that number of generations.
+
+field_get();
+Takes a cell position, and reports wether that cell is live or dead in the field.
