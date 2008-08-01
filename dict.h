@@ -20,6 +20,7 @@ int spawn(int x, int y);
  * if friends exist return number
  * if none return 0
  * if invalid position return -1
+ */
 int friends(int x, int y);
 
 /* field(x, y)
