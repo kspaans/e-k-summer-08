@@ -25,8 +25,9 @@
 #include <stdio.h>
 #include "dict.h"
 
-int main(int argc, char *argv[]);
+int main(int argc, char *argv[])
 {
+	tester();
 	return 0;
 }
 
@@ -39,7 +40,7 @@ int main(int argc, char *argv[]);
  *  - An integer, y, the vertical  height of the field
  */
 
-void viz(int field[][], int x, int y)
+void viz(int **field, int x, int y)
 {
 	int i,j; //i is the width, j the height
 
