@@ -47,9 +47,8 @@ void viz(int **field, int x, int y)
 	printf("CONWAY'S GAME OF LIFE\nHere is the state of the field\n");
 	for(j=0;j<y;j++){
 		for(i=0;i<x;i++){
-			printf("%d",field[i][j]);
-			if((i-1) == x)
-				printf("\n");
+			printf("%d\t",field[i][j]);
+			if((i+1) == x) printf("\n");
 		}
 	}
 }
