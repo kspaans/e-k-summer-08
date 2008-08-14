@@ -58,3 +58,26 @@ int spawn(int x, int y)
 		return(0);
 	}
 }
+
+int friends(int x, int y)
+{
+	int count = 0;
+	int i,j;
+
+	/* LAWL NOOB nest(nest(nested!)ed!)ed! */
+	if((x < NCOLS) && (y < NROWS)){
+		for( j = -1; j < 2; j++){
+			for( i = -1; i < 2; i++){
+				if((x+i < NCOLS) && (y+j < NROWS) && (x+i >= 0) && (y+j >= 0)){
+					if((i != 0) || (j != 0)){
+						count += fld[x+i][y+j];
+					}
+				}
+			}
+		}
+		return(count);
+	} else {
+		printf("ERROR: The point (%d,%d) is out of bounds.", x, y);
+		return(-1);
+	}
+}
