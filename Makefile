@@ -1,6 +1,7 @@
 # Blah, makefile?
 
-tester: test.c main.c
+Test: test.c main.c body.c
 	gcc -O -Wall -c main.c
 	gcc -O -Wall -c test.c
-	gcc -o Test test.o main.o
+	gcc -O -Wall -c body.c
+	gcc -o Test test.o main.o body.o

@@ -1,10 +1,19 @@
+// The number of rows and columns in the field.
+#define NCOLS 3
+#define NROWS 3
+
+// The global variable for the field of cells.
+int **fld;
+
+/******************************************************************************/
+
 /* kill(x, y)
  *
  * Checks (x, y) to see if a cell exists
  * if (x, y) exists, kill it and return 1
  * else return 0
  */
-int kill(int x, int y);
+int killf(int x, int y);
 
 /* spawn(x, y)
  *

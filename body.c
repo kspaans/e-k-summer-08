@@ -37,30 +37,24 @@
 #define DICT_H
 #endif
 
-int main(int argc, char *argv[])
+int killf(int x, int y)
 {
-	tester();
-	return 0;
+	if((x < NCOLS) && (y < NROWS)){
+		fld[x][y] = 0;
+		return(1);
+	} else {
+		printf("ERROR: The point (%d,%d) is out of bounds.", x, y);
+		return(0);
+	}
 }
 
-/* IDEA: print to stdout (which can be redirected to a file) the
- * contents of the array.
- * This will get real ugly, real fast. :D
- * Takes:
- *  - (2D) Array of arrays representing the field
- *  - An integer, x, the horizontal width of the field
- *  - An integer, y, the vertical  height of the field
- */
-
-void viz(int **field)
+int spawn(int x, int y)
 {
-	int i,j; //i is the width, j the height
-
-	printf("CONWAY'S GAME OF LIFE\nHere is the state of the field\n");
-	for(j=0;j<NROWS;j++){
-		for(i=0;i<NCOLS;i++){
-			printf("%d\t",field[i][j]);
-			if((i+1) == NCOLS) printf("\n");
-		}
+	if((x < NCOLS) && (y < NROWS)){
+		fld[x][y] = 1;
+		return(1);
+	} else {
+		printf("ERROR: The point (%d,%d) is out of bounds.", x, y);
+		return(0);
 	}
 }
