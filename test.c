@@ -92,6 +92,23 @@ int tester(void)
 	printf("A middle cell should have 8 live neighbours: %d\n", friends(1,1));
 	printf("A  side  cell should have 5 live neighbours: %d\n", friends(1,0));
 
+	/* Try some basic tests of the generator and rule. */
+	for(j=0;j<NROWS;j++){
+		for(i=0;i<NCOLS;i++){
+			killf(i,j);
+		}
+	}
+	spawn(0,1);
+	spawn(1,1);
+	spawn(2,1);
+	viz(fld);
+	generator(1);
+	viz(fld);
+	generator(1);
+	viz(fld);
+
+	
+
 	printf("\n\nDone testing.\n\n");
 	return(0);
 }

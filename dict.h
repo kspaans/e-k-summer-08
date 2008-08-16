@@ -7,6 +7,16 @@ int **fld;
 
 /******************************************************************************/
 
+/* field_get(x, y)
+ *
+ * Does bounds checks while seeing if cell at (x,y) is
+ * live or dead.
+ * Returns 0 for dead cell
+ * Returns 1 for live cell
+ * Returns -1 for out-of-bounds indices
+ */
+int field_get(int x, int y);
+
 /* kill(x, y)
  *
  * Checks (x, y) to see if a cell exists
@@ -39,3 +49,17 @@ int friends(int x, int y);
  * if dead return 0
  */
 int field(int x, int y);
+
+/* rule(x, y, n)
+ *
+ * Kills or spawns cells at (x,y), give n many live neighbours
+ * returns 0 on success.
+ */
+int rule(int x, int y, int n);
+
+/* generator(n)
+ *
+ * Ages the field by n generations
+ * Returns 0 on success.
+ */
+int generator(int n);

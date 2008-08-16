@@ -37,6 +37,15 @@
 #define DICT_H
 #endif
 
+int field_get(int x, int y)
+{
+	if ( (x<NCOLS) && (y<NROWS) ) { //within bounds
+		return(fld[x][y]);
+	} else {
+		return(-1);
+	}
+}
+
 int killf(int x, int y)
 {
 	if((x < NCOLS) && (y < NROWS)){
@@ -80,4 +89,43 @@ int friends(int x, int y)
 		printf("ERROR: The point (%d,%d) is out of bounds.", x, y);
 		return(-1);
 	}
+}
+
+int rule(int x, int y, int n)
+{
+/*	switch( n ) {
+		case 2: // do nothing?
+		case 3: spawn(x, y);
+		default: killf(x, y);
+	}*/
+	int test = field_get(x,y);
+
+	if ( test == 1 ) { // If the cell is alive (1)
+		switch(n) {
+			case 2 : spawn(x,y); //do nothing?
+			case 3 : spawn(x,y); //do nothing?
+			default : killf(x,y);
+		}
+		return(0);
+	} else if ( test == -1 ) {
+		printf("ERROR: Points out of bounds in rule(): (%d,%d)", x, y);
+		return(test);
+	} else { // The cell is dead (0)
+		switch(n) {
+			case 3 : spawn(x,y);
+			default : killf(x,y); //do nothing?
+		}
+		return(0);
+	}
+
+}
+
+int generator(int n)
+{
+	for( int j = 0; j < NROWS ; j++ ) {
+		for( int i = 0; i < NCOLS; i++ ) {
+			rule(i,j,friends(i,j));
+		}
+	}	
+	return(0);
 }

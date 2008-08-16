@@ -1,5 +1,5 @@
 CC = gcc
-CFLAGS = -O -Wall
+CFLAGS = -std=c99 -O -Wall
 
 #.o.c:
 
