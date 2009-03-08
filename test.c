@@ -91,6 +91,7 @@ int tester(void)
 	printf("A corner cell should have 3 live neighbours: %d\n", friends(0,0));
 	printf("A middle cell should have 8 live neighbours: %d\n", friends(1,1));
 	printf("A  side  cell should have 5 live neighbours: %d\n", friends(1,0));
+	printf("Goodbye\n\n");
 
 	/* Try some basic tests of the generator and rule. */
 	for(j=0;j<NROWS;j++){
