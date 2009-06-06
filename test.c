@@ -3,28 +3,20 @@
  * meant to be included with main.c
  */
 
-#ifndef STDIO_H
 #include <stdio.h>
-#define STDIO_H
-#endif
-
-#ifndef STDLIB_H
 #include <stdlib.h>
-#define STDLIB_H
-#endif
-
-#ifndef DICT_H
 #include "dict.h"
-#define DICT_H
-#endif
 
 /* For the testing print loop */
-//#define TEST
+/*
+#define TEST
+*/
 /**********/
 
 int tester(void)
 {
 	int i,j;
+	int e = 0;
 
 	fld = malloc(NROWS * sizeof(int *));/*[5][5] = {
 	    {1,6,11,16,21},
@@ -46,7 +38,6 @@ int tester(void)
 	}
 
 	/* Initialize the array! */
-	int e = 0;
 	for(j=0;j<NROWS;j++){
 		for(i=0;i<NCOLS;i++){
 			fld[i][j] = e;

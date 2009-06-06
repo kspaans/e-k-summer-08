@@ -22,20 +22,9 @@
  * visualization.
  */
 
-#ifndef STDIO_H
 #include <stdio.h>
-#define STDIO_H
-#endif
-
-#ifndef STDLIB_H
 #include <stdlib.h>
-#define STDLIB_H
-#endif
-
-#ifndef DICT_H
 #include "dict.h"
-#define DICT_H
-#endif
 
 int main(int argc, char *argv[])
 {
@@ -54,7 +43,7 @@ int main(int argc, char *argv[])
 
 void viz(int **field)
 {
-	int i,j; //i is the width, j the height
+	int i,j; /* i is the width, j the height */
 
 	printf("CONWAY'S GAME OF LIFE\nHere is the state of the field\n");
 	for(j=0;j<NROWS;j++){

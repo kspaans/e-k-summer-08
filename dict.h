@@ -1,11 +1,24 @@
-// The number of rows and columns in the field.
+#ifndef __DICT_H__
+#define __DICT_H__
+/* The number of rows and columns in the field. */
 #define NCOLS 3
 #define NROWS 3
 
-// The global variable for the field of cells.
+/* The global variable for the field of cells. */
 int **fld;
 
 /******************************************************************************/
+
+/* A list of actions to be taken (heh, mad hacks)
+ * Contains a pointer to the action function (killf or spawn) as well as
+ * the necessary parameters.
+ */
+typedef struct action_list {
+	int (*action)(int, int);
+	int x;
+	int y;
+	struct action_list *next;
+} action_list;
 
 /* field_get(x, y)
  *
@@ -52,10 +65,12 @@ int field(int x, int y);
 
 /* rule(x, y, n)
  *
- * Kills or spawns cells at (x,y), give n many live neighbours
- * returns 0 on success.
+ * Uses the rules of the Game of Life to decide wether or not a cell at point
+ * (x,y) with n neighbours should live, die, or respawn.
+ * Returns a pointer to a struct action_list containing the action that it
+ * decided.
  */
-int rule(int x, int y, int n);
+action_list *rule(int x, int y, int n);
 
 /* generator(n)
  *
@@ -63,3 +78,4 @@ int rule(int x, int y, int n);
  * Returns 0 on success.
  */
 int generator(int n);
+#endif /* __DICT_H__ */

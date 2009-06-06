@@ -22,24 +22,13 @@
  * visualization.
  */
 
-#ifndef STDIO_H
 #include <stdio.h>
-#define STDIO_H
-#endif
-
-#ifndef STDLIB_H
 #include <stdlib.h>
-#define STDLIB_H
-#endif
-
-#ifndef DICT_H
 #include "dict.h"
-#define DICT_H
-#endif
 
 int field_get(int x, int y)
 {
-	if ( (x<NCOLS) && (y<NROWS) ) { //within bounds
+	if ( (x<NCOLS) && (y<NROWS) ) { /* within bounds */
 		return(fld[x][y]);
 	} else {
 		return(-1);
@@ -75,57 +64,106 @@ int friends(int x, int y)
 
 	/* LAWL NOOB nest(nest(nested!)ed!)ed! */
 	if((x < NCOLS) && (y < NROWS)){
+#		ifdef DEBUG
+		printf("  friends are ");
+#		endif /* DEBUG */
 		for( j = -1; j < 2; j++){
 			for( i = -1; i < 2; i++){
 				if((x+i < NCOLS) && (y+j < NROWS) && (x+i >= 0) && (y+j >= 0)){
 					if((i != 0) || (j != 0)){
-						count += fld[x+i][y+j];
+#						ifdef DEBUG
+						printf("%d ", fld[x+i][y+j]);
+#						endif /* DEBUG */
+						count += field_get(x + i, y + j); /* fld[x+i][y+j] */
 					}
 				}
 			}
 		}
-		return(count);
+#		ifdef DEBUG
+		printf("\n");
+#		endif /* DEBUG */
+		return count;
 	} else {
 		printf("ERROR: The point (%d,%d) is out of bounds.", x, y);
-		return(-1);
+		return -1;
 	}
 }
 
-int rule(int x, int y, int n)
+action_list *rule(int x, int y, int n)
 {
-/*	switch( n ) {
-		case 2: // do nothing?
-		case 3: spawn(x, y);
-		default: killf(x, y);
-	}*/
 	int test = field_get(x,y);
+	action_list *result;
 
-	if ( test == 1 ) { // If the cell is alive (1)
-		switch(n) {
-			case 2 : spawn(x,y); //do nothing?
-			case 3 : spawn(x,y); //do nothing?
-			default : killf(x,y);
-		}
-		return(0);
-	} else if ( test == -1 ) {
+	result = malloc(sizeof(action_list));
+	if (result == NULL) {
+		printf("ERROR: rule: could not allocate result\n");
+		exit(1);
+	} /* if */
+	result->x = x;
+	result->y = y;
+	result->next = NULL;
+
+	/* If the cell is alive */
+	if (test == 1) {
+		switch (n) {
+			case 2:  result->action = spawn; break;
+			case 3:  result->action = spawn; break;
+			default: result->action = killf; break;
+		} /* switch */
+	} else if (test == -1) {
 		printf("ERROR: Points out of bounds in rule(): (%d,%d)", x, y);
-		return(test);
-	} else { // The cell is dead (0)
-		switch(n) {
-			case 3 : spawn(x,y);
-			default : killf(x,y); //do nothing?
-		}
-		return(0);
-	}
+		exit(1);
+	/* If the cell is dead */
+	} else {
+		switch (n) {
+			case 3:  result->action = spawn; break;
+			default: result->action = killf; break;
+		} /* switch */
+	} /* if */
+	return result;
+} /* end rule */
 
-}
-
+/* Cells are being killed before the end of the generation!
+ * When the next cell checks for it's neighbours, ones that should be
+ * there are already dead...
+ */
 int generator(int n)
 {
-	for( int j = 0; j < NROWS ; j++ ) {
-		for( int i = 0; i < NCOLS; i++ ) {
-			rule(i,j,friends(i,j));
-		}
-	}	
-	return(0);
-}
+	int i,j;
+	action_list *head = NULL;
+	action_list **tail = &head;
+
+#	if 0
+	head = malloc(sizeof(action_list));
+	if (head == NULL) {
+		printf("ERROR: generator: could not allocate head\n");
+		exit(1);
+	} /* if */
+	/* Ugh, terrible, style, how can I init head once outside of the loop?
+	 */
+	head->action = NULL;
+	head->x = -1;
+	head->y = -1;
+	head->next = tail;
+#	endif
+
+	for(j = 0; j < NROWS ; j += 1) {
+		for(i = 0; i < NCOLS; i += 1) {
+			action_list *new = rule(i,j,friends(i,j));
+			*tail = new;
+			tail = &new->next;
+#			ifdef DEBUG
+			printf("Friends(%d,%d): %d\n", i, j, friends(i,j));
+#			endif /* DEBUG */
+		} /* for */
+	} /* for */
+
+	/* now traverse that list and perform the actions in it
+	 */
+	do {
+		head->action(head->x, head->y);
+		head = head->next;
+	} while (head != NULL);
+
+	return 0;
+} /* end generator */
